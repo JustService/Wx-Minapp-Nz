@@ -1,0 +1,993 @@
+openapi: 3.0.3
+info:
+  title: 招生服务小程序 API
+  version: "0.3-mvp"
+  description: |
+    招生服务微信小程序（测评/成长/权益/兴趣搭子）MVP 接口契约。
+    以 docs/CODEX_SPEC.md 为需求来源生成。所有响应使用统一封装 {code,message,data}。
+servers:
+  - url: /api
+tags:
+  - name: Auth
+  - name: Content
+  - name: Evaluate
+  - name: Growth
+  - name: Benefits
+  - name: Buddy
+  - name: Leads
+security:
+  - bearerAuth: []
+paths:
+  /auth/wechat-login:
+    post:
+      tags: [Auth]
+      summary: 微信登录换取 token
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code]
+              properties:
+                code:
+                  type: string
+                  description: wx.login() 返回的 code
+                scene:
+                  type: string
+                  nullable: true
+                  description: 渠道场景值（二维码 scene）
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+
+  /content/home:
+    get:
+      tags: [Content]
+      summary: 首页内容（可公开）
+      security: []
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+
+  /content/school:
+    get:
+      tags: [Content]
+      summary: 学校介绍内容（可公开）
+      security: []
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+
+  /classes:
+    get:
+      tags: [Content]
+      summary: 班型列表（可公开）
+      security: []
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClassListResponse"
+
+  /classes/{id}:
+    get:
+      tags: [Content]
+      summary: 班型详情（可公开）
+      security: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer, format: int64 }
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClassDetailResponse"
+
+  /topics:
+    get:
+      tags: [Evaluate]
+      summary: 测评主题列表
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TopicListResponse"
+
+  /tests:
+    get:
+      tags: [Evaluate]
+      summary: 测评列表（按主题筛选）
+      parameters:
+        - in: query
+          name: topic_id
+          required: false
+          schema: { type: integer, format: int64 }
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TestListResponse"
+
+  /tests/{id}:
+    get:
+      tags: [Evaluate]
+      summary: 测评详情
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer, format: int64 }
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TestDetailResponse"
+
+  /tests/{id}/start:
+    post:
+      tags: [Evaluate]
+      summary: 开始测评（生成 attempt + 随机映射）
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer, format: int64 }
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttemptStartResponse"
+
+  /attempts/{id}/save:
+    post:
+      tags: [Evaluate]
+      summary: 保存草稿（可选）
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer, format: int64 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [answers]
+              properties:
+                answers:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/AnswerItem"
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ApiResponse" }
+
+  /attempts/{id}/submit:
+    post:
+      tags: [Evaluate]
+      summary: 提交测评（幂等 + 生成报告 + 发放奖励）
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer, format: int64 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [answers, idempotency_key]
+              properties:
+                idempotency_key:
+                  type: string
+                  description: 幂等键（客户端生成）
+                answers:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/AnswerItem"
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SubmitAttemptResponse"
+
+  /reports:
+    get:
+      tags: [Evaluate]
+      summary: 报告历史
+      parameters:
+        - in: query
+          name: test_id
+          required: false
+          schema: { type: integer, format: int64 }
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReportListResponse"
+
+  /reports/{id}:
+    get:
+      tags: [Evaluate]
+      summary: 报告详情
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer, format: int64 }
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReportDetailResponse"
+
+  /growth/overview:
+    get:
+      tags: [Growth]
+      summary: 成长概览（等级/积分/成长值/任务摘要）
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/GrowthOverviewResponse" }
+
+  /growth/checkin:
+    post:
+      tags: [Growth]
+      summary: 每日打卡（幂等）
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [idempotency_key]
+              properties:
+                idempotency_key:
+                  type: string
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ApiResponse" }
+
+  /tasks:
+    get:
+      tags: [Growth]
+      summary: 任务列表（每日/每周/成就）
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/TaskListResponse" }
+
+  /tasks/{id}/claim:
+    post:
+      tags: [Growth]
+      summary: 领取任务奖励（幂等）
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer, format: int64 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [idempotency_key]
+              properties:
+                idempotency_key:
+                  type: string
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ApiResponse" }
+
+  /benefits/store:
+    get:
+      tags: [Benefits]
+      summary: 积分兑换列表
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/BenefitStoreResponse" }
+
+  /benefits/redeem:
+    post:
+      tags: [Benefits]
+      summary: 兑换权益券（扣积分 + 发券，幂等）
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [benefit_def_id, idempotency_key]
+              properties:
+                benefit_def_id:
+                  type: integer
+                  format: int64
+                idempotency_key:
+                  type: string
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/RedeemResponse" }
+
+  /benefits/my:
+    get:
+      tags: [Benefits]
+      summary: 我的权益券（背包）
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MyBenefitsResponse" }
+
+  /benefits/{id}/use:
+    post:
+      tags: [Benefits]
+      summary: 核销权益券（幂等）
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer, format: int64 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [idempotency_key]
+              properties:
+                idempotency_key: { type: string }
+                meta:
+                  type: object
+                  nullable: true
+                  additionalProperties: true
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ApiResponse" }
+
+  /tags:
+    get:
+      tags: [Buddy]
+      summary: 兴趣标签库
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/TagListResponse" }
+
+  /me/tags:
+    put:
+      tags: [Buddy]
+      summary: 更新我的标签
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [tag_ids]
+              properties:
+                tag_ids:
+                  type: array
+                  items: { type: integer, format: int64 }
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ApiResponse" }
+
+  /buddy/recommendations:
+    get:
+      tags: [Buddy]
+      summary: 搭子推荐卡片流
+      parameters:
+        - in: query
+          name: limit
+          required: false
+          schema: { type: integer, default: 10 }
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/BuddyRecommendResponse" }
+
+  /buddy/action:
+    post:
+      tags: [Buddy]
+      summary: 对推荐对象执行 like/skip/block
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [target_user_id, action]
+              properties:
+                target_user_id: { type: integer, format: int64 }
+                action:
+                  type: string
+                  enum: [like, skip, block]
+      responses:
+        "200":
+          description: ok（如触发互选，可在 data.match=true 返回）
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/BuddyActionResponse" }
+
+  /buddy/matches:
+    get:
+      tags: [Buddy]
+      summary: 已互选搭子列表
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/BuddyMatchListResponse" }
+
+  /buddy/report:
+    post:
+      tags: [Buddy]
+      summary: 举报用户
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [target_user_id, reason]
+              properties:
+                target_user_id: { type: integer, format: int64 }
+                reason: { type: string }
+                detail: { type: string, nullable: true }
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ApiResponse" }
+
+  /leads/pre-register:
+    post:
+      tags: [Leads]
+      summary: 提交预报名留资
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LeadCreateRequest"
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ApiResponse" }
+
+  /leads/appointment:
+    post:
+      tags: [Leads]
+      summary: 提交预约咨询
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppointmentCreateRequest"
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ApiResponse" }
+
+  /me/leads:
+    get:
+      tags: [Leads]
+      summary: 我的留资记录
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/LeadListResponse" }
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    ApiResponse:
+      type: object
+      required: [code, message, data]
+      properties:
+        code: { type: integer, example: 0 }
+        message: { type: string, example: ok }
+        data: { type: object, additionalProperties: true }
+
+    LoginResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              required: [access_token, profile, wallet]
+              properties:
+                access_token: { type: string }
+                profile: { $ref: "#/components/schemas/UserProfile" }
+                wallet: { $ref: "#/components/schemas/Wallet" }
+
+    UserProfile:
+      type: object
+      properties:
+        id: { type: integer, format: int64 }
+        openid: { type: string }
+        nickname: { type: string, nullable: true }
+        avatar_url: { type: string, nullable: true }
+        grade: { type: string, nullable: true }
+        city: { type: string, nullable: true }
+        status: { type: string, enum: [active, banned] }
+
+    Wallet:
+      type: object
+      properties:
+        points: { type: integer }
+        xp: { type: integer }
+        level: { type: integer }
+
+    ClassType:
+      type: object
+      properties:
+        id: { type: integer, format: int64 }
+        name: { type: string }
+        description: { type: string, nullable: true }
+        plan_quota: { type: integer, nullable: true }
+        prereg_count: { type: integer }
+        status: { type: string, enum: [open, paused, full] }
+        show_quota: { type: boolean }
+        threshold_warn: { type: integer, nullable: true }
+
+    ClassListResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items: { $ref: "#/components/schemas/ClassType" }
+
+    ClassDetailResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data: { $ref: "#/components/schemas/ClassType" }
+
+    Topic:
+      type: object
+      properties:
+        id: { type: integer, format: int64 }
+        name: { type: string }
+        description: { type: string, nullable: true }
+        sort: { type: integer }
+        status: { type: string, enum: [online, offline] }
+
+    TopicListResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items: { $ref: "#/components/schemas/Topic" }
+
+    Test:
+      type: object
+      properties:
+        id: { type: integer, format: int64 }
+        topic_id: { type: integer, format: int64 }
+        title: { type: string }
+        description: { type: string, nullable: true }
+        mode: { type: string, enum: [fixed, draw] }
+        question_count: { type: integer }
+        time_estimate_sec: { type: integer, nullable: true }
+        reward_points: { type: integer }
+        reward_xp: { type: integer }
+        status: { type: string, enum: [online, offline] }
+
+    TestListResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items: { $ref: "#/components/schemas/Test" }
+
+    TestDetailResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data: { $ref: "#/components/schemas/Test" }
+
+    AttemptQuestion:
+      type: object
+      properties:
+        question_id: { type: integer, format: int64 }
+        q_type: { type: string, enum: [single, multi, scale] }
+        stem: { type: string }
+        dimension_key: { type: string, nullable: true }
+        options:
+          type: array
+          items:
+            $ref: "#/components/schemas/AttemptOption"
+
+    AttemptOption:
+      type: object
+      properties:
+        option_id: { type: integer, format: int64 }
+        content: { type: string }
+
+    AttemptStartResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              required: [attempt_id, attempt_seed, questions]
+              properties:
+                attempt_id: { type: integer, format: int64 }
+                attempt_seed: { type: string }
+                questions:
+                  type: array
+                  items: { $ref: "#/components/schemas/AttemptQuestion" }
+
+    AnswerItem:
+      type: object
+      required: [question_id, answer]
+      properties:
+        question_id: { type: integer, format: int64 }
+        answer:
+          description: 单选=option_id；多选=[option_id,...]
+          oneOf:
+            - type: integer
+              format: int64
+            - type: array
+              items: { type: integer, format: int64 }
+
+    Report:
+      type: object
+      properties:
+        id: { type: integer, format: int64 }
+        test_id: { type: integer, format: int64 }
+        attempt_id: { type: integer, format: int64 }
+        summary: { type: string, nullable: true }
+        result_json:
+          type: object
+          additionalProperties: true
+        created_at: { type: string, format: date-time }
+
+    SubmitAttemptResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              required: [report]
+              properties:
+                report: { $ref: "#/components/schemas/Report" }
+                reward:
+                  type: object
+                  properties:
+                    points: { type: integer }
+                    xp: { type: integer }
+
+    ReportListResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items: { $ref: "#/components/schemas/Report" }
+
+    ReportDetailResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data: { $ref: "#/components/schemas/Report" }
+
+    GrowthOverviewResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                wallet: { $ref: "#/components/schemas/Wallet" }
+
+    TaskItem:
+      type: object
+      properties:
+        user_task_id: { type: integer, format: int64 }
+        code: { type: string }
+        title: { type: string }
+        description: { type: string, nullable: true }
+        progress: { type: integer }
+        target: { type: integer }
+        status: { type: string, enum: [ongoing, claimable, claimed] }
+        reward_points: { type: integer }
+        reward_xp: { type: integer }
+
+    TaskListResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items: { $ref: "#/components/schemas/TaskItem" }
+
+    BenefitDef:
+      type: object
+      properties:
+        id: { type: integer, format: int64 }
+        benefit_type: { type: string, enum: [coupon, lottery_ticket, service, gift] }
+        name: { type: string }
+        description: { type: string, nullable: true }
+        cost_points: { type: integer }
+        validity_days: { type: integer, nullable: true }
+        stock: { type: integer, nullable: true }
+        per_user_limit: { type: integer, nullable: true }
+        status: { type: string, enum: [online, offline] }
+
+    BenefitStoreResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items: { $ref: "#/components/schemas/BenefitDef" }
+
+    UserBenefit:
+      type: object
+      properties:
+        id: { type: integer, format: int64 }
+        benefit_def_id: { type: integer, format: int64 }
+        status: { type: string, enum: [active, used, expired] }
+        benefit_code: { type: string }
+        expires_at: { type: string, format: date-time, nullable: true }
+        used_at: { type: string, format: date-time, nullable: true }
+
+    MyBenefitsResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items: { $ref: "#/components/schemas/UserBenefit" }
+
+    RedeemResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                order_id: { type: integer, format: int64 }
+                user_benefit: { $ref: "#/components/schemas/UserBenefit" }
+
+    Tag:
+      type: object
+      properties:
+        id: { type: integer, format: int64 }
+        category: { type: string, enum: [interest, study, campus, habit] }
+        name: { type: string }
+
+    TagListResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items: { $ref: "#/components/schemas/Tag" }
+
+    BuddyCandidate:
+      type: object
+      properties:
+        user_id: { type: integer, format: int64 }
+        nickname: { type: string, nullable: true }
+        avatar_url: { type: string, nullable: true }
+        reasons:
+          type: array
+          items: { type: string }
+
+    BuddyRecommendResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items: { $ref: "#/components/schemas/BuddyCandidate" }
+
+    BuddyActionResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                match:
+                  type: boolean
+                  description: 是否触发互选成功
+                team_id:
+                  type: integer
+                  format: int64
+                  nullable: true
+
+    BuddyMatchItem:
+      type: object
+      properties:
+        team_id: { type: integer, format: int64 }
+        buddy_user_id: { type: integer, format: int64 }
+        nickname: { type: string, nullable: true }
+        avatar_url: { type: string, nullable: true }
+        matched_at: { type: string, format: date-time }
+
+    BuddyMatchListResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items: { $ref: "#/components/schemas/BuddyMatchItem" }
+
+    LeadCreateRequest:
+      type: object
+      required: [name, phone]
+      properties:
+        name: { type: string }
+        phone: { type: string }
+        grade: { type: string, nullable: true }
+        class_type_id: { type: integer, format: int64, nullable: true }
+        source_scene: { type: string, nullable: true }
+
+    AppointmentCreateRequest:
+      allOf:
+        - $ref: "#/components/schemas/LeadCreateRequest"
+        - type: object
+          required: [appointment_time]
+          properties:
+            appointment_time: { type: string, format: date-time }
+
+    LeadItem:
+      type: object
+      properties:
+        id: { type: integer, format: int64 }
+        lead_type: { type: string, enum: [pre_register, appointment] }
+        name: { type: string }
+        phone: { type: string }
+        grade: { type: string, nullable: true }
+        class_type_id: { type: integer, format: int64, nullable: true }
+        appointment_time: { type: string, format: date-time, nullable: true }
+        follow_status: { type: string }
+        created_at: { type: string, format: date-time }
+
+    LeadListResponse:
+      allOf:
+        - $ref: "#/components/schemas/ApiResponse"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items: { $ref: "#/components/schemas/LeadItem" }
