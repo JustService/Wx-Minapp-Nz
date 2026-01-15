@@ -1,0 +1,30 @@
+<view class="container">
+  <view class="section-title">我的标签</view>
+  <view class="card">
+    <view class="tag-row">
+      <block wx:for="{{tags}}" wx:key="index">
+        <text class="tag">{{item}}</text>
+      </block>
+    </view>
+    <button class="primary-button" size="mini" bindtap="goEditTags">编辑标签</button>
+  </view>
+
+  <view class="section-title">推荐搭子</view>
+  <view class="card">
+    <view class="candidate-name">{{candidate.name}}</view>
+    <block wx:for="{{candidate.reason}}" wx:key="index">
+      <text class="hint">{{item}}</text>
+    </block>
+    <view class="actions">
+      <button class="ghost" size="mini">跳过</button>
+      <button class="primary-button" size="mini">喜欢</button>
+    </view>
+  </view>
+
+  <view class="section-title">预设招呼语</view>
+  <view class="card">
+    <block wx:for="{{greetings}}" wx:key="index">
+      <view class="greet">{{item}}</view>
+    </block>
+  </view>
+</view>

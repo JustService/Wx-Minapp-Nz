@@ -1,0 +1,18 @@
+<view class="container">
+  <view class="card">
+    <view class="section-title">{{schoolName}}</view>
+    <text class="hint">{{intro}}</text>
+  </view>
+
+  <view class="card">
+    <view class="section-title">教学亮点</view>
+    <block wx:for="{{highlights}}" wx:key="index">
+      <view class="highlight">{{item}}</view>
+    </block>
+  </view>
+
+  <view class="card">
+    <view class="section-title">联系方式</view>
+    <text class="hint">{{contact}}</text>
+  </view>
+</view>

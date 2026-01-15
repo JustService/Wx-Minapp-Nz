@@ -1,0 +1,52 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/evaluate/index",
+    "pages/growth/index",
+    "pages/benefits/index",
+    "pages/me/index",
+    "pages/buddy/index",
+    "pages/school/index",
+    "pages/class/detail/index",
+    "pages/evaluate/detail/index",
+    "pages/evaluate/attempt/index",
+    "pages/evaluate/report/index",
+    "pages/me/reports/index",
+    "pages/lead/form/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#120B24",
+    "navigationBarTitleText": "招生服务",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#120B24"
+  },
+  "tabBar": {
+    "color": "#9B8FD1",
+    "selectedColor": "#C9A9FF",
+    "backgroundColor": "#120B24",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/evaluate/index",
+        "text": "测评"
+      },
+      {
+        "pagePath": "pages/growth/index",
+        "text": "成长"
+      },
+      {
+        "pagePath": "pages/benefits/index",
+        "text": "权益"
+      },
+      {
+        "pagePath": "pages/me/index",
+        "text": "我的"
+      }
+    ]
+  }
+}

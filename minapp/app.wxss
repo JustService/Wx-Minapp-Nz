@@ -1,0 +1,62 @@
+page {
+  background-color: #120b24;
+  color: #e9d6ff;
+  font-family: "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+}
+
+.container {
+  padding: 24rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #e9d6ff;
+  margin-bottom: 20rpx;
+}
+
+.card {
+  background: linear-gradient(135deg, rgba(40, 22, 72, 0.92), rgba(24, 14, 48, 0.92));
+  border-radius: 28rpx;
+  padding: 24rpx;
+  box-shadow: 0 12rpx 28rpx rgba(0, 0, 0, 0.35);
+  border: 1rpx solid rgba(201, 169, 255, 0.2);
+}
+
+.badge {
+  padding: 6rpx 18rpx;
+  border-radius: 999rpx;
+  background: rgba(201, 169, 255, 0.15);
+  color: #c9a9ff;
+  font-size: 22rpx;
+}
+
+.primary-button {
+  margin-top: 20rpx;
+  background: linear-gradient(90deg, #9a7bff, #c9a9ff);
+  color: #1b0d34;
+  border-radius: 999rpx;
+  font-weight: 600;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+.grid-item {
+  flex: 1 1 45%;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.hint {
+  color: #b3a6d9;
+  font-size: 24rpx;
+}

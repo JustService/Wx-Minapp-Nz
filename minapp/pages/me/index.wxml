@@ -1,0 +1,18 @@
+<view class="container">
+  <view class="card profile">
+    <view class="avatar"></view>
+    <view>
+      <view class="name">{{profile.name}}</view>
+      <text class="hint">{{profile.grade}} · {{profile.city}}</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <block wx:for="{{menu}}" wx:key="title">
+      <view class="menu-item" data-route="{{item.route}}" bindtap="goTo">
+        <text>{{item.title}}</text>
+        <text class="hint">查看</text>
+      </view>
+    </block>
+  </view>
+</view>

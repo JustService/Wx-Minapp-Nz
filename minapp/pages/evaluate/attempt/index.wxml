@@ -1,0 +1,9 @@
+<view class="container">
+  <view class="progress">{{current}} / {{total}}</view>
+  <view class="card">
+    <view class="question-title">{{question.title}}</view>
+    <block wx:for="{{question.options}}" wx:key="index">
+      <view class="option" bindtap="selectOption">{{item}}</view>
+    </block>
+  </view>
+</view>

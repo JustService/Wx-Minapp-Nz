@@ -1,0 +1,9 @@
+<view class="container">
+  <view class="card">
+    <view class="title">{{name}}</view>
+    <text class="hint">{{description}}</text>
+    <view class="quota">{{quota}}</view>
+    <text class="badge">{{status}}</text>
+    <button class="primary-button" bindtap="goLead">立即预约</button>
+  </view>
+</view>

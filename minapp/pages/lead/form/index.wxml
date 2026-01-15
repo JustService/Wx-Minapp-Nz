@@ -1,0 +1,22 @@
+<view class="container">
+  <view class="card">
+    <view class="section-title">填写信息</view>
+    <view class="form-item">
+      <text>姓名</text>
+      <input placeholder="请输入姓名" />
+    </view>
+    <view class="form-item">
+      <text>手机号</text>
+      <input placeholder="请输入手机号" />
+    </view>
+    <view class="form-item">
+      <text>年级</text>
+      <input placeholder="例如 初一" />
+    </view>
+    <view class="form-item">
+      <text>预约时间</text>
+      <input placeholder="请选择时间" />
+    </view>
+    <button class="primary-button" bindtap="submit">提交预约</button>
+  </view>
+</view>
