@@ -1,0 +1,12 @@
+<view class="container">
+  <view class="card">
+    <view class="card-title">{{detail.title}}</view>
+    <view class="card-subtitle">{{detail.description}}</view>
+    <view class="detail-meta">
+      <view class="badge">{{detail.questionCount}} 题</view>
+      <view class="badge">{{detail.time}}</view>
+      <view class="badge">{{detail.reward}}</view>
+    </view>
+    <button class="button-primary" bindtap="onStart">开始测评</button>
+  </view>
+</view>

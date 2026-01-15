@@ -1,0 +1,64 @@
+.hero {
+  padding-top: 32rpx;
+}
+
+.hero-header {
+  display: flex;
+  gap: 20rpx;
+  align-items: center;
+}
+
+.logo {
+  width: 96rpx;
+  height: 96rpx;
+}
+
+.resource-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24rpx;
+  padding: 16rpx;
+  border-radius: 20rpx;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.resource-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+  align-items: center;
+}
+
+.resource-label {
+  font-size: 22rpx;
+  color: #c8b7ff;
+}
+
+.resource-value {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.hero-action {
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.quick-card {
+  padding: 20rpx;
+  border-radius: 18rpx;
+  background: rgba(110, 63, 243, 0.18);
+}
+
+.quick-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-bottom: 10rpx;
+}
+
+.notice-item {
+  font-size: 24rpx;
+  color: #d4c9ff;
+  margin-bottom: 12rpx;
+}

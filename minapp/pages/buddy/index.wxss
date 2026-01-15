@@ -1,0 +1,40 @@
+.tag-list {
+  display: flex;
+  gap: 12rpx;
+  flex-wrap: wrap;
+  margin: 16rpx 0;
+}
+
+.tag {
+  padding: 8rpx 18rpx;
+  border-radius: 999rpx;
+  background: rgba(110, 63, 243, 0.2);
+  font-size: 22rpx;
+}
+
+.buddy-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.buddy-name {
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.buddy-actions {
+  display: flex;
+  gap: 12rpx;
+}
+
+.ghost {
+  background: rgba(255, 255, 255, 0.1);
+  color: #d4c9ff;
+}
+
+.greeting {
+  padding: 12rpx 0;
+  color: #d4c9ff;
+}

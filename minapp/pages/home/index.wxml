@@ -1,0 +1,53 @@
+<view class="container">
+  <view class="card hero">
+    <view class="hero-header">
+      <image class="logo" src="{{schoolLogo}}" mode="aspectFit" />
+      <view>
+        <view class="card-title">{{schoolName}}</view>
+        <view class="card-subtitle">手游风招生主城 · 成长任务专区</view>
+      </view>
+    </view>
+    <view class="resource-bar">
+      <view class="resource-item">
+        <text class="resource-label">积分</text>
+        <text class="resource-value">{{resources.points}}</text>
+      </view>
+      <view class="resource-item">
+        <text class="resource-label">成长值</text>
+        <text class="resource-value">{{resources.xp}}</text>
+      </view>
+      <view class="resource-item">
+        <text class="resource-label">等级</text>
+        <text class="resource-value">Lv{{resources.level}}</text>
+      </view>
+    </view>
+    <view class="hero-action">
+      <button class="button-primary" data-route="/pages/lead/index" bindtap="onNavigate">预约咨询</button>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">快捷入口</view>
+    <view class="grid">
+      <block wx:for="{{quickEntrances}}" wx:key="title">
+        <view class="grid-item quick-card" data-route="{{item.route}}" bindtap="onNavigate">
+          <view class="quick-title">{{item.title}}</view>
+          <view class="card-subtitle">{{item.desc}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">招生公告</view>
+    <block wx:for="{{notices}}" wx:key="*this">
+      <view class="notice-item">{{item}}</view>
+    </block>
+  </view>
+
+  <view class="card">
+    <view class="card-title">兴趣搭子推荐</view>
+    <view class="card-subtitle">同频好友组队任务，使用预设招呼语互动。</view>
+    <button class="button-primary" data-route="/pages/buddy/index" bindtap="onNavigate">进入搭子大厅</button>
+  </view>
+</view>

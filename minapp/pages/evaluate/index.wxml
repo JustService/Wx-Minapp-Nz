@@ -1,0 +1,24 @@
+<view class="container">
+  <view class="card">
+    <view class="card-title">测评主题</view>
+    <view class="topic-list">
+      <block wx:for="{{topics}}" wx:key="id">
+        <view class="topic-item {{activeTopic === item.id ? 'active' : ''}}" data-id="{{item.id}}" bindtap="onTopicChange">
+          {{item.name}}
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <block wx:for="{{tests}}" wx:key="id">
+    <view class="card test-card">
+      <view class="card-title">{{item.title}}</view>
+      <view class="card-subtitle">{{item.description}}</view>
+      <view class="test-meta">
+        <text>{{item.time}}</text>
+        <text>{{item.reward}}</text>
+      </view>
+      <button class="button-primary" data-id="{{item.id}}" bindtap="onGoDetail">查看详情</button>
+    </view>
+  </block>
+</view>

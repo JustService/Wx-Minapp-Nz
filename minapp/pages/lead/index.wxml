@@ -1,0 +1,22 @@
+<view class="container">
+  <view class="card">
+    <view class="card-title">预约咨询</view>
+    <view class="form-item">
+      <text>姓名</text>
+      <input placeholder="请输入姓名" data-key="name" bindinput="onInput" />
+    </view>
+    <view class="form-item">
+      <text>手机号</text>
+      <input placeholder="请输入手机号" data-key="phone" bindinput="onInput" />
+    </view>
+    <view class="form-item">
+      <text>年级</text>
+      <input placeholder="如：初三" data-key="grade" bindinput="onInput" />
+    </view>
+    <view class="form-item">
+      <text>预约时间</text>
+      <input placeholder="如：2024-08-20 10:00" data-key="appointment" bindinput="onInput" />
+    </view>
+    <button class="button-primary" bindtap="onSubmit">提交预约</button>
+  </view>
+</view>

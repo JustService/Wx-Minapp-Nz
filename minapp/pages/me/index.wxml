@@ -1,0 +1,22 @@
+<view class="container">
+  <view class="card profile">
+    <image class="avatar" src="{{schoolLogo}}" />
+    <view>
+      <view class="card-title">{{profile.name}}</view>
+      <view class="card-subtitle">{{profile.grade}} · {{profile.city}}</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">我的服务</view>
+    <block wx:for="{{menu}}" wx:key="title">
+      <view class="menu-item">
+        <view>
+          <view class="menu-title">{{item.title}}</view>
+          <view class="card-subtitle">{{item.desc}}</view>
+        </view>
+        <text class="chevron">›</text>
+      </view>
+    </block>
+  </view>
+</view>

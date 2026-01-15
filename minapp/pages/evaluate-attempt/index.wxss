@@ -1,0 +1,12 @@
+.progress {
+  font-size: 22rpx;
+  color: #d4c9ff;
+  margin-bottom: 12rpx;
+}
+
+.option {
+  padding: 18rpx;
+  margin: 14rpx 0;
+  border-radius: 16rpx;
+  background: rgba(110, 63, 243, 0.2);
+}

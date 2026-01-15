@@ -1,0 +1,48 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/evaluate/index",
+    "pages/evaluate-detail/index",
+    "pages/evaluate-attempt/index",
+    "pages/evaluate-report/index",
+    "pages/growth/index",
+    "pages/benefits/index",
+    "pages/buddy/index",
+    "pages/lead/index",
+    "pages/me/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "南召衡辰中学",
+    "navigationBarBackgroundColor": "#1B1130",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#120A23"
+  },
+  "tabBar": {
+    "color": "#b9a9f5",
+    "selectedColor": "#ffffff",
+    "backgroundColor": "#1b1130",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/evaluate/index",
+        "text": "测评"
+      },
+      {
+        "pagePath": "pages/growth/index",
+        "text": "成长"
+      },
+      {
+        "pagePath": "pages/benefits/index",
+        "text": "权益"
+      },
+      {
+        "pagePath": "pages/me/index",
+        "text": "我的"
+      }
+    ]
+  }
+}

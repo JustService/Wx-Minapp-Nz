@@ -1,0 +1,22 @@
+<view class="container">
+  <view class="card">
+    <view class="card-title">成长进度</view>
+    <view class="card-subtitle">Lv{{level}} · {{xp}}/{{xpTarget}} 成长值</view>
+    <view class="progress-bar">
+      <view class="progress-fill" style="width: {{(xp / xpTarget) * 100}}%;"></view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">今日任务</view>
+    <block wx:for="{{tasks}}" wx:key="title">
+      <view class="task-item">
+        <view>
+          <view class="task-title">{{item.title}}</view>
+          <view class="card-subtitle">{{item.reward}}</view>
+        </view>
+        <view class="badge">{{item.status}}</view>
+      </view>
+    </block>
+  </view>
+</view>
