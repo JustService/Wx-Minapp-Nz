@@ -1,0 +1,10 @@
+<view class="container">
+  <view class="card">
+    <view class="progress">第 {{progress}} / {{total}} 题</view>
+    <view class="card-title">{{question.stem}}</view>
+    <block wx:for="{{question.options}}" wx:key="*this">
+      <view class="option">{{item}}</view>
+    </block>
+    <button class="button-primary" bindtap="onNext">提交并查看报告</button>
+  </view>
+</view>

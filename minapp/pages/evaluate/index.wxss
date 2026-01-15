@@ -1,0 +1,30 @@
+.topic-list {
+  display: flex;
+  gap: 16rpx;
+  flex-wrap: wrap;
+}
+
+.topic-item {
+  padding: 12rpx 24rpx;
+  border-radius: 999rpx;
+  background: rgba(110, 63, 243, 0.2);
+  color: #d9ccff;
+  font-size: 24rpx;
+}
+
+.topic-item.active {
+  background: linear-gradient(90deg, #7a4bff, #a76bff);
+  color: #ffffff;
+}
+
+.test-card {
+  gap: 16rpx;
+}
+
+.test-meta {
+  display: flex;
+  justify-content: space-between;
+  margin: 16rpx 0;
+  color: #cbbfff;
+  font-size: 22rpx;
+}

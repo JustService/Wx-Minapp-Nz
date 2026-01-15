@@ -1,0 +1,32 @@
+<view class="container">
+  <view class="card">
+    <view class="card-title">我的积分</view>
+    <view class="points">{{points}}</view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">兑换商城</view>
+    <block wx:for="{{store}}" wx:key="name">
+      <view class="benefit-item">
+        <view>
+          <view class="benefit-name">{{item.name}}</view>
+          <view class="card-subtitle">消耗 {{item.cost}} 积分</view>
+        </view>
+        <view class="badge">{{item.status}}</view>
+      </view>
+    </block>
+  </view>
+
+  <view class="card">
+    <view class="card-title">我的权益券</view>
+    <block wx:for="{{myBenefits}}" wx:key="name">
+      <view class="benefit-item">
+        <view>
+          <view class="benefit-name">{{item.name}}</view>
+          <view class="card-subtitle">券码 {{item.code}}</view>
+        </view>
+        <view class="badge">{{item.status}}</view>
+      </view>
+    </block>
+  </view>
+</view>

@@ -1,0 +1,16 @@
+<view class="container">
+  <view class="card">
+    <view class="card-title">测评报告</view>
+    <view class="card-subtitle">{{summary}}</view>
+    <view class="score-list">
+      <block wx:for="{{scores}}" wx:key="label">
+        <view class="score-item">
+          <text>{{item.label}}</text>
+          <text class="score-value">{{item.value}}</text>
+        </view>
+      </block>
+    </view>
+    <view class="badge">{{recommendation}}</view>
+    <button class="button-primary" bindtap="onBackHome">回到主城</button>
+  </view>
+</view>
