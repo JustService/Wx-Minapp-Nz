@@ -1,0 +1,13 @@
+.form-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16rpx;
+}
+
+input {
+  margin-top: 8rpx;
+  padding: 12rpx;
+  border-radius: 12rpx;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
