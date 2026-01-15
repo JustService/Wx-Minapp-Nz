@@ -1,0 +1,17 @@
+page {
+  background-image: url('/assets/bg-class-detail.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+
+.title {
+  font-size: 32rpx;
+  font-weight: 600;
+  margin-bottom: 12rpx;
+}
+
+.quota {
+  margin-top: 12rpx;
+  color: #7cffee;
+}

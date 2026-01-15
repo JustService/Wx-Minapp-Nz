@@ -1,0 +1,8 @@
+<svg width="750" height="1334" viewBox="0 0 750 1334" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="750" height="1334" fill="#0C1226"/>
+  <circle cx="140" cy="200" r="180" fill="#1B274D"/>
+  <circle cx="620" cy="240" r="140" fill="#13384A"/>
+  <circle cx="520" cy="980" r="220" fill="#1A2040"/>
+  <path d="M60 1060 C200 980 360 980 500 1060 C600 1120 680 1120 720 1100" stroke="#7CFFEE" stroke-width="6" stroke-linecap="round" opacity="0.6"/>
+  <text x="60" y="120" fill="#7CFFEE" font-size="28" font-family="PingFang SC">class-detail</text>
+</svg>

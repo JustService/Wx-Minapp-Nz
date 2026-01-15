@@ -1,0 +1,25 @@
+page {
+  background-image: url('/assets/bg-benefits.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+
+.points {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #7cffee;
+}
+
+.item-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.item-title {
+  display: block;
+  font-size: 28rpx;
+  margin-bottom: 6rpx;
+}

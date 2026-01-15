@@ -1,0 +1,7 @@
+<svg width="600" height="360" viewBox="0 0 600 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="360" rx="28" fill="#101A34"/>
+  <circle cx="130" cy="120" r="90" fill="#1F2B52"/>
+  <circle cx="420" cy="100" r="60" fill="#1B4E5D"/>
+  <path d="M80 260 C180 200 260 200 360 260 C450 320 520 320 560 300" stroke="#7CFFEE" stroke-width="6" stroke-linecap="round"/>
+  <text x="60" y="170" fill="#7CFFEE" font-size="32" font-family="PingFang SC">成长主城</text>
+</svg>

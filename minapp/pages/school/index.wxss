@@ -1,0 +1,11 @@
+page {
+  background-image: url('/assets/bg-school.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+
+.highlight {
+  margin-bottom: 10rpx;
+  color: #c9f7ff;
+}

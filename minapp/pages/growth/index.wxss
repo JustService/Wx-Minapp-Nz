@@ -1,0 +1,35 @@
+page {
+  background-image: url('/assets/bg-growth.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+
+.level {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #7cffee;
+}
+
+.progress-bar {
+  margin-top: 16rpx;
+  height: 14rpx;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999rpx;
+}
+
+.progress-inner {
+  height: 100%;
+  background: linear-gradient(90deg, #44d9ff, #7cffee);
+}
+
+.task-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18rpx;
+}
+
+.task-title {
+  display: block;
+  font-size: 28rpx;
+}
