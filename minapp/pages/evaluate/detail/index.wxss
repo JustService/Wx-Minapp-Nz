@@ -1,0 +1,13 @@
+.title {
+  font-size: 34rpx;
+  font-weight: 600;
+  margin-bottom: 12rpx;
+}
+
+.stats {
+  margin-top: 16rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+  color: #b9c7ef;
+}

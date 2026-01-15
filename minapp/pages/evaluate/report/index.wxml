@@ -1,0 +1,23 @@
+<view class="container">
+  <view class="card">
+    <view class="section-title">总结</view>
+    <text class="summary">{{summary}}</text>
+  </view>
+
+  <view class="card">
+    <view class="section-title">维度表现</view>
+    <block wx:for="{{scores}}" wx:key="label">
+      <view class="score-row">
+        <text>{{item.label}}</text>
+        <view class="score-bar">
+          <view class="score-bar-inner" style="width: {{item.value}}%"></view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view class="card reward-card">
+    <text>{{reward}}</text>
+    <button class="primary-button" bindtap="goGrowth">去成长页</button>
+  </view>
+</view>

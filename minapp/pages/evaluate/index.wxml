@@ -1,0 +1,20 @@
+<view class="container">
+  <view class="section-title">测评主题</view>
+  <view class="topic-row">
+    <block wx:for="{{topics}}" wx:key="index">
+      <text class="topic-chip">{{item}}</text>
+    </block>
+  </view>
+
+  <view class="section-title">测评推荐</view>
+  <block wx:for="{{tests}}" wx:key="id">
+    <view class="card test-card" bindtap="goDetail" data-id="{{item.id}}">
+      <view class="test-title">{{item.title}}</view>
+      <view class="test-meta">
+        <text class="hint">{{item.time}}</text>
+        <text class="badge">{{item.reward}}</text>
+      </view>
+      <view class="hint">状态：{{item.status}}</view>
+    </view>
+  </block>
+</view>

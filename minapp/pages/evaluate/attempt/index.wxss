@@ -1,0 +1,17 @@
+.progress {
+  text-align: right;
+  color: #7b87b2;
+  margin-bottom: 16rpx;
+}
+
+.question-title {
+  font-size: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.option {
+  padding: 16rpx;
+  border-radius: 20rpx;
+  background: rgba(124, 255, 238, 0.08);
+  margin-bottom: 16rpx;
+}

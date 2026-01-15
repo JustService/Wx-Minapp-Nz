@@ -1,0 +1,26 @@
+.summary {
+  font-size: 28rpx;
+  color: #c9f7ff;
+}
+
+.score-row {
+  margin-bottom: 16rpx;
+}
+
+.score-bar {
+  margin-top: 6rpx;
+  height: 12rpx;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999rpx;
+  overflow: hidden;
+}
+
+.score-bar-inner {
+  height: 100%;
+  background: linear-gradient(90deg, #44d9ff, #7cffee);
+}
+
+.reward-card {
+  margin-top: 24rpx;
+  text-align: center;
+}

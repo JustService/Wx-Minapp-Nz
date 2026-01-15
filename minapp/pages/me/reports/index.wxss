@@ -1,0 +1,9 @@
+.report-card {
+  margin-bottom: 20rpx;
+}
+
+.title {
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-bottom: 6rpx;
+}

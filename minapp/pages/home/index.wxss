@@ -1,0 +1,73 @@
+.hero {
+  padding: 0;
+  overflow: hidden;
+}
+
+.hero-image {
+  width: 100%;
+}
+
+.hero-content {
+  padding: 16rpx 24rpx 24rpx;
+}
+
+.hero-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #7cffee;
+}
+
+.hero-subtitle {
+  display: block;
+  margin-top: 8rpx;
+  color: #a9b7e8;
+  font-size: 26rpx;
+}
+
+.resource-bar {
+  display: flex;
+  justify-content: space-between;
+  margin: 24rpx 0;
+  padding: 18rpx 24rpx;
+  border-radius: 20rpx;
+  background: rgba(20, 30, 60, 0.8);
+  border: 1rpx solid rgba(124, 255, 238, 0.2);
+}
+
+.resource-item {
+  text-align: center;
+}
+
+.resource-item .label {
+  display: block;
+  font-size: 22rpx;
+  color: #7b87b2;
+}
+
+.resource-item .value {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.section {
+  margin-top: 32rpx;
+}
+
+.task-title {
+  display: block;
+  font-size: 28rpx;
+  margin-bottom: 6rpx;
+}
+
+.grid-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #e8f5ff;
+}
+
+.notice {
+  font-size: 24rpx;
+  color: #c9d6ff;
+  margin-bottom: 12rpx;
+}

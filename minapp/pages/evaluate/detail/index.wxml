@@ -1,0 +1,11 @@
+<view class="container">
+  <view class="card">
+    <view class="title">{{title}}</view>
+    <text class="hint">{{description}}</text>
+    <view class="stats">
+      <text>题目数：{{questionCount}}</text>
+      <text>奖励：{{reward}}</text>
+    </view>
+    <button class="primary-button" bindtap="start">开始测评</button>
+  </view>
+</view>
