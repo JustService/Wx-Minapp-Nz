@@ -1,20 +1,37 @@
 <view class="container">
-  <view class="section-title">测评主题</view>
-  <view class="topic-row">
-    <block wx:for="{{topics}}" wx:key="index">
-      <text class="topic-chip">{{item}}</text>
+  <view class="tab-row">
+    <block wx:for="{{categories}}" wx:key="key">
+      <view
+        class="tab-item {{item.key === activeCategory ? 'active' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="onSwitchCategory"
+      >
+        <text>{{item.label}}</text>
+      </view>
     </block>
   </view>
 
-  <view class="section-title">测评推荐</view>
   <block wx:for="{{tests}}" wx:key="id">
-    <view class="card test-card" bindtap="goDetail" data-id="{{item.id}}">
-      <view class="test-title">{{item.title}}</view>
-      <view class="test-meta">
-        <text class="hint">{{item.time}}</text>
-        <text class="badge">{{item.reward}}</text>
+    <view
+      wx:if="{{item.category === activeCategory}}"
+      class="card evaluate-card"
+      bindtap="goDetail"
+      data-id="{{item.id}}"
+    >
+      <view class="card-header">
+        <view class="test-title">{{item.title}}</view>
+        <view class="status-badge status-{{item.statusType}}">
+          <text>{{item.statusText}}</text>
+        </view>
       </view>
-      <view class="hint">状态：{{item.status}}</view>
+      <view class="test-meta">
+        <text class="meta-text">用时 {{item.time}}</text>
+        <text class="meta-text">奖励 {{item.reward}}</text>
+      </view>
+      <view class="card-tags">
+        <view class="chip">主题</view>
+        <view class="chip chip-primary">{{item.actionText}}</view>
+      </view>
     </view>
   </block>
 </view>

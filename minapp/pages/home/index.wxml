@@ -1,60 +1,63 @@
 <view class="container">
-  <view class="card hero">
-    <image class="hero-image" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nNzUwJyBoZWlnaHQ9JzEzMzQnIHZpZXdCb3g9JzAgMCA3NTAgMTMzNCcgZmlsbD0nbm9uZScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KPHJlY3Qgd2lkdGg9Jzc1MCcgaGVpZ2h0PScxMzM0JyBmaWxsPScjMkIxNTUwJy8+CjxjaXJjbGUgY3g9JzE0MCcgY3k9JzIwMCcgcj0nMTgwJyBmaWxsPScjNEEyQTdBJy8+CjxjaXJjbGUgY3g9JzYyMCcgY3k9JzI0MCcgcj0nMTQwJyBmaWxsPScjNEEyQTdBJy8+CjxjaXJjbGUgY3g9JzUyMCcgY3k9Jzk4MCcgcj0nMjIwJyBmaWxsPScjNEEyQTdBJy8+CjxwYXRoIGQ9J002MCAxMDYwIEMyMDAgOTgwIDM2MCA5ODAgNTAwIDEwNjAgQzYwMCAxMTIwIDY4MCAxMTIwIDcyMCAxMTAwJyBzdHJva2U9JyNDOUE5RkYnIHN0cm9rZS13aWR0aD0nNicgc3Ryb2tlLWxpbmVjYXA9J3JvdW5kJyBvcGFjaXR5PScwLjYnLz4KPHRleHQgeD0nNjAnIHk9JzEyMCcgZmlsbD0nI0U5RDZGRicgZm9udC1zaXplPScyOCcgZm9udC1mYW1pbHk9J1BpbmdGYW5nIFNDJz5oZXJvPC90ZXh0Pgo8L3N2Zz4=" mode="widthFix" />
-    <view class="hero-content">
-      <text class="hero-title">星穹成长营</text>
-      <text class="hero-subtitle">点亮你的学习技能树</text>
-    </view>
-  </view>
-
-  <view class="resource-bar">
-    <view class="resource-item">
-      <text class="label">积分</text>
-      <text class="value">{{resources.points}}</text>
-    </view>
-    <view class="resource-item">
-      <text class="label">成长值</text>
-      <text class="value">{{resources.xp}}</text>
-    </view>
-    <view class="resource-item">
-      <text class="label">等级</text>
-      <text class="value">Lv.{{resources.level}}</text>
-    </view>
-  </view>
-
-  <view class="section">
-    <view class="section-title">主线任务</view>
-    <view class="card">
-      <block wx:for="{{tasks}}" wx:key="title">
-        <view class="list-item">
-          <view>
-            <text class="task-title">{{item.title}}</text>
-            <text class="hint">{{item.desc}}</text>
+  <view class="card top-card">
+    <view class="top-row">
+      <view class="avatar-wrap">
+        <text class="avatar-initial">U</text>
+      </view>
+      <view class="top-main">
+        <text class="nickname">{{profile.nickname}}</text>
+        <view class="level-badge">
+          <text class="level-text">Lv. {{profile.level}}</text>
+        </view>
+      </view>
+      <view class="top-right">
+        <view class="wallet-item">
+          <text class="wallet-label">积分</text>
+          <text class="wallet-value">{{wallet.points}}</text>
+        </view>
+        <view class="wallet-item">
+          <text class="wallet-label">券</text>
+          <view class="wallet-ticket">
+            <text class="wallet-value">{{wallet.tickets}}</text>
+            <view wx:if="{{wallet.hasTicketRedDot}}" class="red-dot"></view>
           </view>
-          <text class="badge">{{item.status}}</text>
         </view>
-      </block>
-      <button class="primary-button" size="mini" data-route="/pages/growth/index" bindtap="goTo">去完成</button>
+      </view>
     </view>
   </view>
 
-  <view class="section">
-    <view class="section-title">快捷入口</view>
-    <view class="grid">
+  <view class="card mission-card" bindtap="goTo" data-route="/pages/evaluate/index">
+    <view class="mission-left">
+      <view class="section-title-inline">主线任务</view>
+      <view class="mission-title">{{mainMission.title}}</view>
+      <view class="mission-desc">
+        <text class="hint">{{mainMission.desc}}</text>
+        <text class="mission-progress-text">{{mainMission.progress}}/{{mainMission.total}}</text>
+      </view>
+    </view>
+    <view class="mission-right">
+      <view class="go-btn">GO</view>
+    </view>
+  </view>
+
+  <view class="card quick-card">
+    <view class="section-title-inline">快捷入口</view>
+    <view class="quick-grid">
       <block wx:for="{{quickEntries}}" wx:key="title">
-        <view class="card grid-item" data-route="{{item.route}}" bindtap="goTo">
-          <text class="grid-title">{{item.title}}</text>
-          <text class="hint">点击进入</text>
+        <view class="quick-item" data-route="{{item.route}}" bindtap="goTo">
+          <view class="quick-dot" style="background-color: {{item.color}};"></view>
+          <text class="quick-title">{{item.title}}</text>
         </view>
       </block>
     </view>
   </view>
 
-  <view class="section">
-    <view class="section-title">公告活动</view>
-    <view class="card">
-      <block wx:for="{{notices}}" wx:key="index">
-        <view class="notice">{{item}}</view>
+  <view class="card notice-card">
+    <view class="notice-title">{{notice.title}}</view>
+    <text class="notice-desc">{{notice.desc}}</text>
+    <view class="notice-tags">
+      <block wx:for="{{notice.tags}}" wx:key="index">
+        <view class="notice-tag">{{item}}</view>
       </block>
     </view>
   </view>

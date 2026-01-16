@@ -1,23 +1,60 @@
 <view class="container">
-  <view class="card">
-    <view class="level">Lv.{{level}}</view>
-    <view class="hint">{{xp}} / {{nextLevelXp}} 成长值</view>
-    <view class="progress-bar">
-      <view class="progress-inner" style="width: {{(xp / nextLevelXp) * 100}}%"></view>
+  <view class="card tags-card">
+    <view class="tags-header">
+      <text class="tags-title">我的标签</text>
+      <button class="tags-edit-btn" size="mini" bindtap="onEditTags">编辑</button>
+    </view>
+    <view class="tags-row">
+      <block wx:for="{{userTags}}" wx:key="*this">
+        <view class="tag-chip">{{item}}</view>
+      </block>
+    </view>
+    <view class="hint tags-hint">标签体系：兴趣 / 学习 / 校园 / 习惯</view>
+  </view>
+
+  <view class="card partner-card">
+    <view class="partner-main">
+      <view class="partner-avatar">
+        <text class="partner-avatar-text">{{partner.avatarText}}</text>
+      </view>
+      <view class="partner-info">
+        <view class="partner-name-row">
+          <text class="partner-name">昵称：{{partner.nickname}}</text>
+        </view>
+        <text class="hint">年级：{{partner.grade}}</text>
+      </view>
+    </view>
+
+    <view class="partner-tags">
+      <block wx:for="{{partner.commonTags}}" wx:key="*this">
+        <view class="partner-tag">共同：{{item}}</view>
+      </block>
+    </view>
+
+    <view class="reason-text">
+      推荐理由：{{partner.reasonSummary}}
+    </view>
+
+    <view class="actions-row">
+      <button class="action-btn ghost" size="mini" bindtap="onSkip">跳过</button>
+      <button class="action-btn primary" size="mini" bindtap="onLike">喜欢</button>
+      <button class="action-btn ghost" size="mini" bindtap="onBlock">屏蔽</button>
+    </view>
+
+    <view class="safety-row">
+      <text class="safety-link" bindtap="onReport">举报</text>
+      <text class="divider">·</text>
+      <text class="safety-link" bindtap="onBlacklist">拉黑</text>
     </view>
   </view>
 
-  <view class="section-title">今日任务</view>
-  <view class="card">
-    <block wx:for="{{tasks}}" wx:key="title">
+  <view class="card team-card">
+    <view class="section-title">互选成功后：组队任务</view>
+    <block wx:for="{{groupTasks}}" wx:key="*this">
       <view class="task-row">
-        <view>
-          <text class="task-title">{{item.title}}</text>
-          <text class="hint">{{item.reward}}</text>
-        </view>
-        <text class="badge">{{item.status}}</text>
+        <text class="task-title">{{item}}</text>
       </view>
     </block>
-    <button class="primary-button" size="mini">立即打卡</button>
+    <button class="primary-button" size="mini" bindtap="onPresetGreet">使用预设招呼语</button>
   </view>
 </view>

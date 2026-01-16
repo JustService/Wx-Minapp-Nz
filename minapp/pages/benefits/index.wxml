@@ -1,28 +1,65 @@
 <view class="container">
-  <view class="card">
-    <view class="section-title">积分余额</view>
-    <view class="points">{{points}}</view>
+  <view class="card balance-card">
+    <view class="balance-row">
+      <view class="balance-info">
+        <text class="balance-label">积分余额</text>
+        <text class="balance-value">{{points}}</text>
+      </view>
+      <button class="balance-btn" size="mini" bindtap="goRedeem">去兑换</button>
+    </view>
   </view>
 
-  <view class="section-title">兑换商店</view>
-  <block wx:for="{{goods}}" wx:key="name">
-    <view class="card item-card">
-      <view>
-        <text class="item-title">{{item.name}}</text>
-        <text class="hint">{{item.cost}} 积分</text>
-      </view>
-      <text class="badge">{{item.status}}</text>
+  <view class="card modules-card">
+    <view class="tabs-row">
+      <block wx:for="{{tabs}}" wx:key="key">
+        <view
+          class="tab-pill {{item.key === activeTab ? 'active' : ''}}"
+          data-key="{{item.key}}"
+          bindtap="switchTab"
+        >
+          <text>{{item.label}}</text>
+        </view>
+      </block>
     </view>
-  </block>
 
-  <view class="section-title">我的权益券</view>
-  <block wx:for="{{myBenefits}}" wx:key="code">
-    <view class="card">
-      <view class="list-item">
-        <text>{{item.code}}</text>
-        <text class="badge">{{item.status}}</text>
+    <view wx:if="{{activeTab === 'shop'}}">
+      <view class="section-title small-title">积分商城</view>
+      <view class="shop-grid">
+        <block wx:for="{{shopItems}}" wx:key="name">
+          <view class="shop-item" bindtap="onShopItemTap">
+            <text class="shop-name">{{item.name}}</text>
+            <view class="shop-cost">
+              <text>{{item.cost}}</text>
+              <text class="shop-cost-unit">积分</text>
+            </view>
+          </view>
+        </block>
       </view>
-      <text class="hint">{{item.expires}}</text>
     </view>
-  </block>
+
+    <view wx:elif="{{activeTab === 'lottery'}}">
+      <view class="section-title small-title">抽奖活动</view>
+      <text class="hint">使用积分参与抽奖，赢取更多专属权益。</text>
+    </view>
+
+    <view wx:elif="{{activeTab === 'bag'}}">
+      <view class="section-title small-title">权益背包</view>
+      <text class="hint">你获得的权益券会收纳在下方列表中。</text>
+    </view>
+  </view>
+
+  <view class="card coupons-card">
+    <view class="section-title small-title">我的权益券</view>
+    <block wx:for="{{coupons}}" wx:key="name">
+      <view class="coupon-row">
+        <view class="coupon-main">
+          <text class="coupon-name">{{item.name}}</text>
+          <text class="coupon-expire">有效期至 {{item.expireAt}}</text>
+        </view>
+        <view class="coupon-status status-{{item.status}}">
+          <text>{{item.statusText}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
 </view>
